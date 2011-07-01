@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.grpCommon = new System.Windows.Forms.GroupBox();
+            this.chkNumber = new System.Windows.Forms.CheckBox();
             this.btnCommonNone = new System.Windows.Forms.Button();
             this.btnCommonAll = new System.Windows.Forms.Button();
             this.chkNBSP = new System.Windows.Forms.CheckBox();
@@ -56,13 +57,22 @@
             this.btnRun = new System.Windows.Forms.Button();
             this.lblProgress = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.grpFormatting = new System.Windows.Forms.GroupBox();
+            this.btnFormatingNone = new System.Windows.Forms.Button();
+            this.btnFormattingAll = new System.Windows.Forms.Button();
+            this.chkHyphen = new System.Windows.Forms.CheckBox();
+            this.chkTracking = new System.Windows.Forms.CheckBox();
+            this.chkBlack = new System.Windows.Forms.CheckBox();
             this.grpCommon.SuspendLayout();
             this.grpSecondary.SuspendLayout();
             this.grpRare.SuspendLayout();
+            this.grpFormatting.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpCommon
             // 
+            this.grpCommon.Controls.Add(this.chkNumber);
             this.grpCommon.Controls.Add(this.btnCommonNone);
             this.grpCommon.Controls.Add(this.btnCommonAll);
             this.grpCommon.Controls.Add(this.chkNBSP);
@@ -79,14 +89,26 @@
             this.grpCommon.Controls.Add(this.chkSpaceDashSpace);
             this.grpCommon.Location = new System.Drawing.Point(12, 12);
             this.grpCommon.Name = "grpCommon";
-            this.grpCommon.Size = new System.Drawing.Size(345, 141);
+            this.grpCommon.Size = new System.Drawing.Size(372, 167);
             this.grpCommon.TabIndex = 0;
             this.grpCommon.TabStop = false;
             this.grpCommon.Text = "Common substitutions";
             // 
+            // chkNumber
+            // 
+            this.chkNumber.AutoSize = true;
+            this.chkNumber.Checked = true;
+            this.chkNumber.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkNumber.Location = new System.Drawing.Point(6, 65);
+            this.chkNumber.Name = "chkNumber";
+            this.chkNumber.Size = new System.Drawing.Size(37, 17);
+            this.chkNumber.TabIndex = 14;
+            this.chkNumber.Text = "№";
+            this.chkNumber.UseVisualStyleBackColor = true;
+            // 
             // btnCommonNone
             // 
-            this.btnCommonNone.Location = new System.Drawing.Point(88, 111);
+            this.btnCommonNone.Location = new System.Drawing.Point(291, 138);
             this.btnCommonNone.Name = "btnCommonNone";
             this.btnCommonNone.Size = new System.Drawing.Size(75, 23);
             this.btnCommonNone.TabIndex = 13;
@@ -96,7 +118,7 @@
             // 
             // btnCommonAll
             // 
-            this.btnCommonAll.Location = new System.Drawing.Point(6, 111);
+            this.btnCommonAll.Location = new System.Drawing.Point(209, 138);
             this.btnCommonAll.Name = "btnCommonAll";
             this.btnCommonAll.Size = new System.Drawing.Size(75, 23);
             this.btnCommonAll.TabIndex = 12;
@@ -201,7 +223,7 @@
             this.chkLineBreak.AutoSize = true;
             this.chkLineBreak.Checked = true;
             this.chkLineBreak.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLineBreak.Location = new System.Drawing.Point(6, 88);
+            this.chkLineBreak.Location = new System.Drawing.Point(6, 111);
             this.chkLineBreak.Name = "chkLineBreak";
             this.chkLineBreak.Size = new System.Drawing.Size(77, 17);
             this.chkLineBreak.TabIndex = 3;
@@ -213,7 +235,7 @@
             this.chkTab.AutoSize = true;
             this.chkTab.Checked = true;
             this.chkTab.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkTab.Location = new System.Drawing.Point(6, 65);
+            this.chkTab.Location = new System.Drawing.Point(6, 88);
             this.chkTab.Name = "chkTab";
             this.chkTab.Size = new System.Drawing.Size(76, 17);
             this.chkTab.TabIndex = 2;
@@ -246,9 +268,9 @@
             // 
             // prgrsMain
             // 
-            this.prgrsMain.Location = new System.Drawing.Point(11, 339);
+            this.prgrsMain.Location = new System.Drawing.Point(11, 462);
             this.prgrsMain.Name = "prgrsMain";
-            this.prgrsMain.Size = new System.Drawing.Size(346, 17);
+            this.prgrsMain.Size = new System.Drawing.Size(373, 17);
             this.prgrsMain.TabIndex = 1;
             // 
             // grpSecondary
@@ -259,16 +281,16 @@
             this.grpSecondary.Controls.Add(this.chkYearAndCity);
             this.grpSecondary.Controls.Add(this.chkItalicBrackets);
             this.grpSecondary.Controls.Add(this.chkItalicDigits);
-            this.grpSecondary.Location = new System.Drawing.Point(12, 159);
+            this.grpSecondary.Location = new System.Drawing.Point(12, 185);
             this.grpSecondary.Name = "grpSecondary";
-            this.grpSecondary.Size = new System.Drawing.Size(344, 95);
+            this.grpSecondary.Size = new System.Drawing.Size(372, 95);
             this.grpSecondary.TabIndex = 2;
             this.grpSecondary.TabStop = false;
             this.grpSecondary.Text = "Secondary substitutions";
             // 
             // btnSecondaryNone
             // 
-            this.btnSecondaryNone.Location = new System.Drawing.Point(88, 65);
+            this.btnSecondaryNone.Location = new System.Drawing.Point(291, 66);
             this.btnSecondaryNone.Name = "btnSecondaryNone";
             this.btnSecondaryNone.Size = new System.Drawing.Size(75, 23);
             this.btnSecondaryNone.TabIndex = 15;
@@ -278,7 +300,7 @@
             // 
             // btnSecondaryAll
             // 
-            this.btnSecondaryAll.Location = new System.Drawing.Point(6, 65);
+            this.btnSecondaryAll.Location = new System.Drawing.Point(209, 66);
             this.btnSecondaryAll.Name = "btnSecondaryAll";
             this.btnSecondaryAll.Size = new System.Drawing.Size(75, 23);
             this.btnSecondaryAll.TabIndex = 14;
@@ -335,9 +357,9 @@
             // grpRare
             // 
             this.grpRare.Controls.Add(this.chkInitials);
-            this.grpRare.Location = new System.Drawing.Point(12, 260);
+            this.grpRare.Location = new System.Drawing.Point(12, 394);
             this.grpRare.Name = "grpRare";
-            this.grpRare.Size = new System.Drawing.Size(344, 42);
+            this.grpRare.Size = new System.Drawing.Size(372, 42);
             this.grpRare.TabIndex = 3;
             this.grpRare.TabStop = false;
             this.grpRare.Text = "Rare substitutions";
@@ -345,6 +367,7 @@
             // chkInitials
             // 
             this.chkInitials.AutoSize = true;
+            this.chkInitials.Enabled = false;
             this.chkInitials.Location = new System.Drawing.Point(6, 19);
             this.chkInitials.Name = "chkInitials";
             this.chkInitials.Size = new System.Drawing.Size(55, 17);
@@ -354,7 +377,7 @@
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(282, 362);
+            this.btnRun.Location = new System.Drawing.Point(309, 485);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(75, 23);
             this.btnRun.TabIndex = 4;
@@ -366,7 +389,7 @@
             // lblProgress
             // 
             this.lblProgress.AutoSize = true;
-            this.lblProgress.Location = new System.Drawing.Point(12, 321);
+            this.lblProgress.Location = new System.Drawing.Point(12, 444);
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.Size = new System.Drawing.Size(24, 13);
             this.lblProgress.TabIndex = 5;
@@ -375,7 +398,7 @@
             // btnClose
             // 
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Location = new System.Drawing.Point(11, 362);
+            this.btnClose.Location = new System.Drawing.Point(11, 485);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 6;
@@ -384,13 +407,93 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(245, 444);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 15);
+            this.label1.TabIndex = 7;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // grpFormatting
+            // 
+            this.grpFormatting.Controls.Add(this.btnFormatingNone);
+            this.grpFormatting.Controls.Add(this.btnFormattingAll);
+            this.grpFormatting.Controls.Add(this.chkHyphen);
+            this.grpFormatting.Controls.Add(this.chkTracking);
+            this.grpFormatting.Controls.Add(this.chkBlack);
+            this.grpFormatting.Location = new System.Drawing.Point(12, 288);
+            this.grpFormatting.Name = "grpFormatting";
+            this.grpFormatting.Size = new System.Drawing.Size(372, 82);
+            this.grpFormatting.TabIndex = 8;
+            this.grpFormatting.TabStop = false;
+            this.grpFormatting.Text = "Formating";
+            // 
+            // btnFormatingNone
+            // 
+            this.btnFormatingNone.Location = new System.Drawing.Point(291, 53);
+            this.btnFormatingNone.Name = "btnFormatingNone";
+            this.btnFormatingNone.Size = new System.Drawing.Size(75, 23);
+            this.btnFormatingNone.TabIndex = 17;
+            this.btnFormatingNone.Text = "None";
+            this.btnFormatingNone.UseVisualStyleBackColor = true;
+            this.btnFormatingNone.Click += new System.EventHandler(this.btnNone_Click);
+            // 
+            // btnFormattingAll
+            // 
+            this.btnFormattingAll.Location = new System.Drawing.Point(209, 53);
+            this.btnFormattingAll.Name = "btnFormattingAll";
+            this.btnFormattingAll.Size = new System.Drawing.Size(75, 23);
+            this.btnFormattingAll.TabIndex = 16;
+            this.btnFormattingAll.Text = "All";
+            this.btnFormattingAll.UseVisualStyleBackColor = true;
+            this.btnFormattingAll.Click += new System.EventHandler(this.btnAll_Click);
+            // 
+            // chkHyphen
+            // 
+            this.chkHyphen.AutoSize = true;
+            this.chkHyphen.Checked = true;
+            this.chkHyphen.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkHyphen.Location = new System.Drawing.Point(265, 19);
+            this.chkHyphen.Name = "chkHyphen";
+            this.chkHyphen.Size = new System.Drawing.Size(101, 17);
+            this.chkHyphen.TabIndex = 18;
+            this.chkHyphen.Text = "Off hyphenation";
+            this.chkHyphen.UseVisualStyleBackColor = true;
+            // 
+            // chkTracking
+            // 
+            this.chkTracking.AutoSize = true;
+            this.chkTracking.Checked = true;
+            this.chkTracking.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkTracking.Location = new System.Drawing.Point(140, 19);
+            this.chkTracking.Name = "chkTracking";
+            this.chkTracking.Size = new System.Drawing.Size(107, 17);
+            this.chkTracking.TabIndex = 17;
+            this.chkTracking.Text = "Remove tracking";
+            this.chkTracking.UseVisualStyleBackColor = true;
+            // 
+            // chkBlack
+            // 
+            this.chkBlack.AutoSize = true;
+            this.chkBlack.Checked = true;
+            this.chkBlack.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBlack.Location = new System.Drawing.Point(6, 19);
+            this.chkBlack.Name = "chkBlack";
+            this.chkBlack.Size = new System.Drawing.Size(97, 17);
+            this.chkBlack.TabIndex = 16;
+            this.chkBlack.Text = "Set black color";
+            this.chkBlack.UseVisualStyleBackColor = true;
+            // 
             // formMain
             // 
             this.AcceptButton = this.btnRun;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(368, 397);
+            this.ClientSize = new System.Drawing.Size(396, 519);
+            this.Controls.Add(this.grpFormatting);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblProgress);
             this.Controls.Add(this.btnRun);
@@ -408,6 +511,8 @@
             this.grpSecondary.PerformLayout();
             this.grpRare.ResumeLayout(false);
             this.grpRare.PerformLayout();
+            this.grpFormatting.ResumeLayout(false);
+            this.grpFormatting.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -443,5 +548,13 @@
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.Label lblProgress;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox chkNumber;
+        private System.Windows.Forms.GroupBox grpFormatting;
+        private System.Windows.Forms.CheckBox chkBlack;
+        private System.Windows.Forms.CheckBox chkTracking;
+        private System.Windows.Forms.CheckBox chkHyphen;
+        private System.Windows.Forms.Button btnFormatingNone;
+        private System.Windows.Forms.Button btnFormattingAll;
     }
 }

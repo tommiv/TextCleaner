@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using Microsoft.VisualStudio.Tools.Applications.Runtime;
-using Office = Microsoft.Office.Core;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace TextCleaner
@@ -28,7 +21,7 @@ namespace TextCleaner
         private void btnClose_Click(object sender, EventArgs e) { this.Close(); }
         private void btnRun_Click(object sender, EventArgs e)
         {
-            int maximum = 0;
+            int maximum = 10;
             foreach (Control cnt in this.Controls)
             {
                 cnt.Enabled = false;
@@ -60,28 +53,70 @@ namespace TextCleaner
         }
         private void run(object sender, DoWorkEventArgs e)
         {
+            var t = DateTime.Now;
             var bw = sender as BackgroundWorker;
-            if (chkSpaces.Checked)         SearchReplace(" {2;}",          " ",   false, false, bw, "Spaces"                );
-            if (chkSpaceDashSpace.Checked) SearchReplace(" [-–—]{1} ",     " – ", false, false, bw, "Space-Dash-Space"      );
-            if (chkPercent.Checked)        SearchReplace("%",              " %",  false, false, bw, "Percent"               );         
-            if (chkTab.Checked)            SearchReplace("^t",             "",    false, false, bw, "Tabulation"            );
-            if (chkLineBreak.Checked)      SearchReplace("^l",             "",    false, false, bw, "Line Break"            );
-            if (chkSpaceDots.Checked)      SearchReplace("([  ])([.,;:])", @"\2", false, false, bw, "Space-dots"            );
-            if (chkCRLFSpace.Checked)      SearchReplace(" ^p",            "^p",  false, false, bw, "Space-CRLF",      false);
-            if (chkSpaceCRLF.Checked)      SearchReplace("^p ",            "^p",  false, false, bw, "CRLF-Space",      false);
-            if (chkPageBreak.Checked)      SearchReplace("^m",             "^p",  false, false, bw, "Page Break",      false); // Check
-            if (chkYo.Checked)             SearchReplace("ё",              "е",   false, false, bw, "ё -> е",          false);
-            if (chkSpaces.Checked)         SearchReplace(" {2;}",          " ",   false, false, bw, "Spaces, again"         );
-            if (chkNBSP.Checked)           SearchReplace(" {2;}",          " ",   false, false, bw, "Double NBSP"           ); // This is NBPS
-            if (chkNBSP.Checked)           SearchReplace(" ^s",            "^s",  false, true,  bw, "Space-NBSP",      false);
-            if (chkNBSP.Checked)           SearchReplace("^s ",            "^s",  false, true,  bw, "Space-NBSP",      false);
+            if (chkSpaces.Checked)         searchReplace(" {2;}",             " ",       false, false, bw, "Spaces"                );
+            if (chkSpaceDashSpace.Checked) searchReplace(" [-–—]{1} ",        " – ",     false, false, bw, "Space-Dash-Space"      );
+            if (chkPercent.Checked)        searchReplace("%",                 " %",      false, false, bw, "Percent"               );
+            if (chkNumber.Checked)         searchReplace("№",                 "№ ",      false, false, bw, "№"                     );
+            if (chkTab.Checked)            searchReplace("^t",                "",        false, false, bw, "Tabulation"            );
+            if (chkLineBreak.Checked)      searchReplace("^l",                "",        false, false, bw, "Line Break"            );
+            if (chkSpaceDots.Checked)      searchReplace("([  ])([.,;:])",    @"\2",     false, false, bw, "Space-dots"            );
+            if (chkCRLFSpace.Checked)      searchReplace(" ^p",               "^p",      false, false, bw, "Space-CRLF",      false);
+            if (chkSpaceCRLF.Checked)      searchReplace("^p ",               "^p",      false, false, bw, "CRLF-Space",      false);
+            if (chkPageBreak.Checked)      searchReplace("^m",                "^p",      false, false, bw, "Page Break",      false); // Check
+            if (chkYo.Checked)             searchReplace("ё",                 "е",       false, false, bw, "ё -> е",          false);
+            if (chkSpaces.Checked)         searchReplace(" {2;}",             " ",       false, false, bw, "Spaces, again"         );
+            if (chkNBSP.Checked)           searchReplace(" {2;}",             " ",       false, false, bw, "Double NBSP"           ); // This is NBPS
+            if (chkNBSP.Checked)           searchReplace(" ^s",               "^s",      false, true,  bw, "Space-NBSP",      false);
+            if (chkNBSP.Checked)           searchReplace("^s ",               "^s",      false, true,  bw, "Space-NBSP",      false);
+            if (chkDigitDashDigit.Checked) searchReplace("([0-9])-([0-9])",   @"\1–\2",  false, false, bw, "Digit-Dash-Digit"      );
+            if (chkYearAndCity.Checked)    searchReplace("([0-9]{2;}) г.",    @"\1 г.",  false, false, bw, "Year"                  ); // This is NBPS
+            if (chkYearAndCity.Checked)    searchReplace(" г. ([!0-9])",      @" г. \1", false, false, bw, "City"                  ); // This is NBPS
+            if (chkPreposition.Checked)    searchReplace(" ([а-яА-Я]{1;3}) ", @" \1 ",   false, false, bw, "Preposition"           ); // This is NBPS
+            if (chkSpaces.Checked)         searchReplace(" {2;}",             " ",       false, false, bw, "Spaces, a little more" );
+            if (chkItalicDigits.Checked)   setFormat("[0-9]",             bw, "Italic digits"  );
+            if (chkItalicBrackets.Checked) setFormat(@"[\(\[\{\}\]\)<>]", bw, "Italic brackets");
+            if (chkBlack.Checked)
+            {
+                bw.ReportProgress(0, "Set black color");
+                Globals.ThisAddIn.Application.Selection.WholeStory();
+                Globals.ThisAddIn.Application.Selection.Font.ColorIndex = Word.WdColorIndex.wdBlack;
+                foreach (Word.Footnote f in Globals.ThisAddIn.Application.Selection.Footnotes)
+                {
+                    f.Range.Select();
+                    Globals.ThisAddIn.Application.Selection.Font.ColorIndex = Word.WdColorIndex.wdBlack;
+                }
+            }
+            if (chkTracking.Checked)
+            {
+                bw.ReportProgress(0, "Remove tracking/kerning");
+                Globals.ThisAddIn.Application.Selection.WholeStory();
+                Globals.ThisAddIn.Application.Selection.Font.Scaling = 100;
+                Globals.ThisAddIn.Application.Selection.Font.Spacing = 0;
+                foreach (Word.Footnote f in Globals.ThisAddIn.Application.Selection.Footnotes)
+                {
+                    f.Range.Select();
+                    Globals.ThisAddIn.Application.Selection.Font.Scaling = 100;
+                    Globals.ThisAddIn.Application.Selection.Font.Spacing = 0;
+                }
+            }
+            if (chkHyphen.Checked)
+            {
+                bw.ReportProgress(0, "Turn off hyphenation");
+                Globals.ThisAddIn.Application.Selection.WholeStory();
+                Globals.ThisAddIn.Application.Selection.ParagraphFormat.Hyphenation = 0;
+            }
             bw.ReportProgress(0, "Idle");
+            TimeSpan sp = DateTime.Now - t;
+            Invoke((Action)(()=>label1.Text = sp.Duration().TotalMilliseconds + " ms."));
         }
-        private static void SearchReplace(
+        private static void searchReplace(
             string search, string replace, bool matchCase, bool repeated, 
             BackgroundWorker bw, string message, bool wildcards = true, bool format = false
         )
         {
+            bw.ReportProgress(0, message);
             Object FindText           = search;
             Object MatchCase          = matchCase;
             Object MatchWholeWord     = false;
@@ -95,10 +130,8 @@ namespace TextCleaner
             Object Replace            = Word.WdReplace.wdReplaceAll;
 
             bool loop = true;
-            int i = 0;
             while (loop)
             {
-                bw.ReportProgress(0, message + (repeated? ", #" + i : ""));
                 Word.Find findObject = Globals.ThisAddIn.Application.Selection.Find;
                 findObject.ClearFormatting();
                 findObject.Replacement.ClearFormatting();
@@ -107,7 +140,36 @@ namespace TextCleaner
                     ref MatchAllWordForms, ref Forward, ref Wrap, ref Format, ref ReplaceWith, ref Replace
                 );
                 if (!repeated) loop = false;
-                i++;
+            }
+        }
+        private static void setFormat(string search, BackgroundWorker bw, string message, bool wildcards = true)
+        {
+            bw.ReportProgress(0, message);
+            Object FindText          = search;
+            Object MatchCase         = false;
+            Object MatchWholeWord    = false;
+            Object MatchWildcards    = wildcards;
+            Object MatchSoundsLike   = false;
+            Object MatchAllWordForms = false;
+            Object Forward           = true;
+            Object Wrap              = Word.WdFindWrap.wdFindStop;
+            Object Format            = false;
+            Object ReplaceWith       = null;
+            Object Replace           = Word.WdReplace.wdReplaceNone;
+
+            Globals.ThisAddIn.Application.Selection.HomeKey(Word.WdUnits.wdStory);
+            bool loop = true;
+            while (loop)
+            {
+                Word.Find findObject = Globals.ThisAddIn.Application.Selection.Find;
+                findObject.ClearFormatting();
+                findObject.Replacement.ClearFormatting();
+                findObject.Font.Italic = 1;
+                loop = findObject.Execute(
+                    ref FindText, ref MatchCase, ref MatchWholeWord, ref MatchWildcards, ref MatchSoundsLike,
+                    ref MatchAllWordForms, ref Forward, ref Wrap, ref Format, ref ReplaceWith, ref Replace
+                );
+                Globals.ThisAddIn.Application.Selection.Font.Italic = 0;
             }
         }
     }
