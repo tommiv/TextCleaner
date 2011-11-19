@@ -64,6 +64,7 @@
             this.chkHyphen = new System.Windows.Forms.CheckBox();
             this.chkTracking = new System.Windows.Forms.CheckBox();
             this.chkBlack = new System.Windows.Forms.CheckBox();
+            this.chkEquationsReset = new System.Windows.Forms.CheckBox();
             this.grpCommon.SuspendLayout();
             this.grpSecondary.SuspendLayout();
             this.grpRare.SuspendLayout();
@@ -356,6 +357,7 @@
             // 
             // grpRare
             // 
+            this.grpRare.Controls.Add(this.chkEquationsReset);
             this.grpRare.Controls.Add(this.chkInitials);
             this.grpRare.Location = new System.Drawing.Point(12, 394);
             this.grpRare.Name = "grpRare";
@@ -485,6 +487,18 @@
             this.chkBlack.Text = "Set black color";
             this.chkBlack.UseVisualStyleBackColor = true;
             // 
+            // chkEquationsReset
+            // 
+            this.chkEquationsReset.AutoSize = true;
+            this.chkEquationsReset.Checked = true;
+            this.chkEquationsReset.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkEquationsReset.Location = new System.Drawing.Point(140, 19);
+            this.chkEquationsReset.Name = "chkEquationsReset";
+            this.chkEquationsReset.Size = new System.Drawing.Size(124, 17);
+            this.chkEquationsReset.TabIndex = 1;
+            this.chkEquationsReset.Text = "Reset equations size";
+            this.chkEquationsReset.UseVisualStyleBackColor = true;
+            // 
             // formMain
             // 
             this.AcceptButton = this.btnRun;
@@ -556,5 +570,6 @@
         private System.Windows.Forms.CheckBox chkHyphen;
         private System.Windows.Forms.Button btnFormatingNone;
         private System.Windows.Forms.Button btnFormattingAll;
+        private System.Windows.Forms.CheckBox chkEquationsReset;
     }
 }

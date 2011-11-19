@@ -1,12 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Microsoft.Office.Core;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace TextCleaner
 {
     public partial class formMain : Form
     {
+        private Word.Application app = Globals.ThisAddIn.Application;
+
         public formMain() { InitializeComponent(); }
         private void btnAll_Click(object sender, EventArgs e)
         {
@@ -80,8 +83,8 @@ namespace TextCleaner
             if (chkBlack.Checked)
             {
                 bw.ReportProgress(0, "Set black color");
-                Globals.ThisAddIn.Application.Selection.WholeStory();
-                Globals.ThisAddIn.Application.Selection.Font.ColorIndex = Word.WdColorIndex.wdBlack;
+                app.Selection.WholeStory();
+                app.Selection.Font.ColorIndex = Word.WdColorIndex.wdBlack;
                 foreach (Word.Footnote f in Globals.ThisAddIn.Application.Selection.Footnotes)
                 {
                     f.Range.Select();
@@ -91,9 +94,9 @@ namespace TextCleaner
             if (chkTracking.Checked)
             {
                 bw.ReportProgress(0, "Remove tracking/kerning");
-                Globals.ThisAddIn.Application.Selection.WholeStory();
-                Globals.ThisAddIn.Application.Selection.Font.Scaling = 100;
-                Globals.ThisAddIn.Application.Selection.Font.Spacing = 0;
+                app.Selection.WholeStory();
+                app.Selection.Font.Scaling = 100;
+                app.Selection.Font.Spacing = 0;
                 foreach (Word.Footnote f in Globals.ThisAddIn.Application.Selection.Footnotes)
                 {
                     f.Range.Select();
@@ -104,12 +107,33 @@ namespace TextCleaner
             if (chkHyphen.Checked)
             {
                 bw.ReportProgress(0, "Turn off hyphenation");
-                Globals.ThisAddIn.Application.Selection.WholeStory();
-                Globals.ThisAddIn.Application.Selection.ParagraphFormat.Hyphenation = 0;
+                app.Selection.WholeStory();
+                app.Selection.ParagraphFormat.Hyphenation = 0;
             }
+            if (chkEquationsReset.Checked)
+            {
+                bw.ReportProgress(0, "Resetting inline shapes");
+                var shapes = app.ActiveDocument.InlineShapes;
+                if (shapes != null && shapes.Count > 0)
+                {
+                    foreach (object o in shapes)
+                    {
+                        if (!(o is Word.InlineShape)) continue;
+                        var eq = o as Word.InlineShape;
+                        eq.LockAspectRatio = MsoTriState.msoFalse;
+                        eq.ScaleWidth = 100.0f;
+                        eq.ScaleHeight = 100.0f;
+                    }
+                }
+            }
+
             bw.ReportProgress(0, "Idle");
             TimeSpan sp = DateTime.Now - t;
-            Invoke((Action)(()=>label1.Text = sp.Duration().TotalMilliseconds + " ms."));
+            Invoke((Action)(()=>
+            {
+                label1.Text = sp.Duration().TotalMilliseconds + " ms.";
+                btnClose.Focus();
+            }));
         }
         private static void searchReplace(
             string search, string replace, bool matchCase, bool repeated, 
