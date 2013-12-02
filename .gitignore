@@ -5,3 +5,5 @@
 *ReSharper.user
 *.suo
 *.user
+*.DotSettings
+*.ReSharper
