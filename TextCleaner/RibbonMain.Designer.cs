@@ -37,6 +37,7 @@
             this.tabMain = this.Factory.CreateRibbonTab();
             this.DTP = this.Factory.CreateRibbonGroup();
             this.btnLaunch = this.Factory.CreateRibbonButton();
+            this.btnMerge = this.Factory.CreateRibbonButton();
             this.tabMain.SuspendLayout();
             this.DTP.SuspendLayout();
             // 
@@ -50,6 +51,7 @@
             // DTP
             // 
             this.DTP.Items.Add(this.btnLaunch);
+            this.DTP.Items.Add(this.btnMerge);
             this.DTP.Label = "DTP";
             this.DTP.Name = "DTP";
             // 
@@ -61,6 +63,14 @@
             this.btnLaunch.Name = "btnLaunch";
             this.btnLaunch.ShowImage = true;
             this.btnLaunch.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnLaunch_Click);
+            // 
+            // btnMerge
+            // 
+            this.btnMerge.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnMerge.Label = "Merge";
+            this.btnMerge.Name = "btnMerge";
+            this.btnMerge.ShowImage = true;
+            this.btnMerge.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnMerge_Click);
             // 
             // RibbonMain
             // 
@@ -80,6 +90,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonTab tabMain;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup DTP;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnLaunch;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnMerge;
     }
 
     partial class ThisRibbonCollection
