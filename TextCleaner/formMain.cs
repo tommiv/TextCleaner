@@ -1,14 +1,17 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Office.Core;
 using Word = Microsoft.Office.Interop.Word;
+using System.Collections.Generic;
+using Hyperlink = Microsoft.Office.Interop.Word.Hyperlink;
 
 namespace TextCleaner
 {
     public partial class formMain : Form
     {
-        private Word.Application app = Globals.ThisAddIn.Application;
+        private readonly Word.Application app = Globals.ThisAddIn.Application;
 
         public formMain() { InitializeComponent(); }
         private void btnAll_Click(object sender, EventArgs e)
@@ -124,6 +127,19 @@ namespace TextCleaner
                         eq.ScaleWidth = 100.0f;
                         eq.ScaleHeight = 100.0f;
                     }
+                }
+            }
+            if (chkHyperlinks.Checked)
+            {
+                bw.ReportProgress(0, "Removing hyperlinks");
+                var links = new List<Hyperlink>(); // Temporary collection is a hack for unexpected behavior of Hyperlinks enumerator
+                foreach (Hyperlink l in app.ActiveDocument.Hyperlinks)
+                {
+                    links.Add(l);
+                }
+                foreach (var link in links) 
+                {
+                    link.Delete();
                 }
             }
 

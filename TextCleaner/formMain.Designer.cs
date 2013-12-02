@@ -53,6 +53,7 @@
             this.chkItalicBrackets = new System.Windows.Forms.CheckBox();
             this.chkItalicDigits = new System.Windows.Forms.CheckBox();
             this.grpRare = new System.Windows.Forms.GroupBox();
+            this.chkEquationsReset = new System.Windows.Forms.CheckBox();
             this.chkInitials = new System.Windows.Forms.CheckBox();
             this.btnRun = new System.Windows.Forms.Button();
             this.lblProgress = new System.Windows.Forms.Label();
@@ -64,7 +65,7 @@
             this.chkHyphen = new System.Windows.Forms.CheckBox();
             this.chkTracking = new System.Windows.Forms.CheckBox();
             this.chkBlack = new System.Windows.Forms.CheckBox();
-            this.chkEquationsReset = new System.Windows.Forms.CheckBox();
+            this.chkHyperlinks = new System.Windows.Forms.CheckBox();
             this.grpCommon.SuspendLayout();
             this.grpSecondary.SuspendLayout();
             this.grpRare.SuspendLayout();
@@ -73,6 +74,7 @@
             // 
             // grpCommon
             // 
+            this.grpCommon.Controls.Add(this.chkHyperlinks);
             this.grpCommon.Controls.Add(this.chkNumber);
             this.grpCommon.Controls.Add(this.btnCommonNone);
             this.grpCommon.Controls.Add(this.btnCommonAll);
@@ -366,6 +368,18 @@
             this.grpRare.TabStop = false;
             this.grpRare.Text = "Rare substitutions";
             // 
+            // chkEquationsReset
+            // 
+            this.chkEquationsReset.AutoSize = true;
+            this.chkEquationsReset.Checked = true;
+            this.chkEquationsReset.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkEquationsReset.Location = new System.Drawing.Point(140, 19);
+            this.chkEquationsReset.Name = "chkEquationsReset";
+            this.chkEquationsReset.Size = new System.Drawing.Size(124, 17);
+            this.chkEquationsReset.TabIndex = 1;
+            this.chkEquationsReset.Text = "Reset equations size";
+            this.chkEquationsReset.UseVisualStyleBackColor = true;
+            // 
             // chkInitials
             // 
             this.chkInitials.AutoSize = true;
@@ -487,17 +501,17 @@
             this.chkBlack.Text = "Set black color";
             this.chkBlack.UseVisualStyleBackColor = true;
             // 
-            // chkEquationsReset
+            // chkHyperlinks
             // 
-            this.chkEquationsReset.AutoSize = true;
-            this.chkEquationsReset.Checked = true;
-            this.chkEquationsReset.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkEquationsReset.Location = new System.Drawing.Point(140, 19);
-            this.chkEquationsReset.Name = "chkEquationsReset";
-            this.chkEquationsReset.Size = new System.Drawing.Size(124, 17);
-            this.chkEquationsReset.TabIndex = 1;
-            this.chkEquationsReset.Text = "Reset equations size";
-            this.chkEquationsReset.UseVisualStyleBackColor = true;
+            this.chkHyperlinks.AutoSize = true;
+            this.chkHyperlinks.Checked = true;
+            this.chkHyperlinks.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkHyperlinks.Location = new System.Drawing.Point(140, 111);
+            this.chkHyperlinks.Name = "chkHyperlinks";
+            this.chkHyperlinks.Size = new System.Drawing.Size(75, 17);
+            this.chkHyperlinks.TabIndex = 15;
+            this.chkHyperlinks.Text = "Hyperlinks";
+            this.chkHyperlinks.UseVisualStyleBackColor = true;
             // 
             // formMain
             // 
@@ -571,5 +585,6 @@
         private System.Windows.Forms.Button btnFormatingNone;
         private System.Windows.Forms.Button btnFormattingAll;
         private System.Windows.Forms.CheckBox chkEquationsReset;
+        private System.Windows.Forms.CheckBox chkHyperlinks;
     }
 }
