@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextCleaner", "TextCleaner\TextCleaner.csproj", "{852BD89D-AC04-4535-B7F9-A67F70CC5741}"
 EndProject
 Global
