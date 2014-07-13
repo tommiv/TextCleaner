@@ -1,6 +1,6 @@
 ﻿namespace TextCleaner
 {
-    partial class formMerge
+    partial class Merge
     {
         /// <summary>
         /// Required designer variable.

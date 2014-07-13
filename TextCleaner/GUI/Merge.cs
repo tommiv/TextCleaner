@@ -5,9 +5,9 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace TextCleaner
 {
-    public partial class formMerge : Form
+    public partial class Merge : Form
     {
-        public formMerge()
+        public Merge()
         {
             InitializeComponent();
         }

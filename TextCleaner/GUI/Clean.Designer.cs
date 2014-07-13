@@ -1,6 +1,6 @@
 ﻿namespace TextCleaner
 {
-    partial class formMain
+    partial class Clean
     {
         /// <summary>
         /// Required designer variable.

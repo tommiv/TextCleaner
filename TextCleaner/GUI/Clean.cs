@@ -9,11 +9,11 @@ using Hyperlink = Microsoft.Office.Interop.Word.Hyperlink;
 
 namespace TextCleaner
 {
-    public partial class formMain : Form
+    public partial class Clean : Form
     {
         private readonly Word.Application app = Globals.ThisAddIn.Application;
 
-        public formMain() { InitializeComponent(); }
+        public Clean() { InitializeComponent(); }
         private void btnAll_Click(object sender, EventArgs e)
         {
             var s = (GroupBox)((Button)sender).Parent;
