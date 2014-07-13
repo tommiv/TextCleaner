@@ -11,14 +11,15 @@ namespace TextCleaner.GUI
             InitializeComponent();
         }
 
-        private const string path = @"d:\Docs\Работа\СКНЦ\НМК - 2014-02\source";
+        private string path;
         private static object m = System.Reflection.Missing.Value;
         private readonly Microsoft.Office.Interop.Word.Application app = Globals.ThisAddIn.Application;
         private static readonly object eof = "\\endofdoc";
-        private const string separator = "###";
 
         private void btnRun_Click(object sender, EventArgs e)
         {
+            string separator = TxtAbstractAnchor.Text;
+
             var destination = app.Documents.Add(ref m, ref m, ref m, ref m);
             var ann_ru = app.Documents.Add(ref m, ref m, ref m, ref m);
             var ann_en = app.Documents.Add(ref m, ref m, ref m, ref m);
@@ -91,6 +92,14 @@ namespace TextCleaner.GUI
             ann_en.Content.Copy();
             destination.Bookmarks.get_Item(eof).Range.Paste();
             ann_en.Close(SaveChanges: ref m);
+        }
+
+        private void BtnBrowse_Click(object sender, EventArgs e)
+        {
+            BrowsePath.ShowDialog();
+            path = BrowsePath.SelectedPath;
+            TxtPath.Text = path ?? String.Empty;
+            btnRun.Enabled = Directory.Exists(path);
         }
     }
 }
