@@ -1,17 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Office.Core;
-using Word = Microsoft.Office.Interop.Word;
-using System.Collections.Generic;
-using Hyperlink = Microsoft.Office.Interop.Word.Hyperlink;
+using Microsoft.Office.Interop.Word;
+using CheckBox = System.Windows.Forms.CheckBox;
 
-namespace TextCleaner
+namespace TextCleaner.GUI
 {
     public partial class Clean : Form
     {
-        private readonly Word.Application app = Globals.ThisAddIn.Application;
+        private readonly Microsoft.Office.Interop.Word.Application app = Globals.ThisAddIn.Application;
 
         public Clean() { InitializeComponent(); }
         private void btnAll_Click(object sender, EventArgs e)
@@ -32,7 +32,7 @@ namespace TextCleaner
             {
                 cnt.Enabled = false;
                 if (cnt is GroupBox)
-                    foreach (Control c in cnt.Controls) if (c is CheckBox && ((CheckBox) c).Checked) maximum++;
+                    maximum += cnt.Controls.Cast<Control>().Count(c => c is CheckBox && ((CheckBox) c).Checked);
             }
             prgrsMain.Maximum = maximum;
             prgrsMain.Value   = 0;
@@ -87,11 +87,11 @@ namespace TextCleaner
             {
                 bw.ReportProgress(0, "Set black color");
                 app.Selection.WholeStory();
-                app.Selection.Font.ColorIndex = Word.WdColorIndex.wdBlack;
-                foreach (Word.Footnote f in Globals.ThisAddIn.Application.Selection.Footnotes)
+                app.Selection.Font.ColorIndex = WdColorIndex.wdBlack;
+                foreach (Footnote f in Globals.ThisAddIn.Application.Selection.Footnotes)
                 {
                     f.Range.Select();
-                    Globals.ThisAddIn.Application.Selection.Font.ColorIndex = Word.WdColorIndex.wdBlack;
+                    Globals.ThisAddIn.Application.Selection.Font.ColorIndex = WdColorIndex.wdBlack;
                 }
             }
             if (chkTracking.Checked)
@@ -100,7 +100,7 @@ namespace TextCleaner
                 app.Selection.WholeStory();
                 app.Selection.Font.Scaling = 100;
                 app.Selection.Font.Spacing = 0;
-                foreach (Word.Footnote f in Globals.ThisAddIn.Application.Selection.Footnotes)
+                foreach (Footnote f in Globals.ThisAddIn.Application.Selection.Footnotes)
                 {
                     f.Range.Select();
                     Globals.ThisAddIn.Application.Selection.Font.Scaling = 100;
@@ -121,8 +121,8 @@ namespace TextCleaner
                 {
                     foreach (object o in shapes)
                     {
-                        if (!(o is Word.InlineShape)) continue;
-                        var eq = o as Word.InlineShape;
+                        if (!(o is InlineShape)) continue;
+                        var eq = o as InlineShape;
                         eq.LockAspectRatio = MsoTriState.msoFalse;
                         eq.ScaleWidth = 100.0f;
                         eq.ScaleHeight = 100.0f;
@@ -144,7 +144,7 @@ namespace TextCleaner
             }
 
             bw.ReportProgress(0, "Idle");
-            TimeSpan sp = DateTime.Now - t;
+            var sp = DateTime.Now - t;
             Invoke((Action)(()=>
             {
                 label1.Text = sp.Duration().TotalMilliseconds + " ms.";
@@ -164,15 +164,15 @@ namespace TextCleaner
             Object MatchSoundsLike    = false;
             Object MatchAllWordForms  = false;
             Object Forward            = false;
-            Object Wrap               = Word.WdFindWrap.wdFindContinue;
+            Object Wrap               = WdFindWrap.wdFindContinue;
             Object Format             = format;
             Object ReplaceWith        = replace;
-            Object Replace            = Word.WdReplace.wdReplaceAll;
+            Object Replace            = WdReplace.wdReplaceAll;
 
             bool loop = true;
             while (loop)
             {
-                Word.Find findObject = Globals.ThisAddIn.Application.Selection.Find;
+                Find findObject = Globals.ThisAddIn.Application.Selection.Find;
                 findObject.ClearFormatting();
                 findObject.Replacement.ClearFormatting();
                 loop = findObject.Execute(
@@ -192,16 +192,16 @@ namespace TextCleaner
             Object MatchSoundsLike   = false;
             Object MatchAllWordForms = false;
             Object Forward           = true;
-            Object Wrap              = Word.WdFindWrap.wdFindStop;
+            Object Wrap              = WdFindWrap.wdFindStop;
             Object Format            = false;
             Object ReplaceWith       = null;
-            Object Replace           = Word.WdReplace.wdReplaceNone;
+            Object Replace           = WdReplace.wdReplaceNone;
 
-            Globals.ThisAddIn.Application.Selection.HomeKey(Word.WdUnits.wdStory);
+            Globals.ThisAddIn.Application.Selection.HomeKey(WdUnits.wdStory);
             bool loop = true;
             while (loop)
             {
-                Word.Find findObject = Globals.ThisAddIn.Application.Selection.Find;
+                Find findObject = Globals.ThisAddIn.Application.Selection.Find;
                 findObject.ClearFormatting();
                 findObject.Replacement.ClearFormatting();
                 findObject.Font.Italic = 1;

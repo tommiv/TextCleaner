@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
-using Word = Microsoft.Office.Interop.Word;
 
-namespace TextCleaner
+namespace TextCleaner.GUI
 {
     public partial class Merge : Form
     {
@@ -14,7 +13,7 @@ namespace TextCleaner
 
         private const string path = @"d:\Docs\Работа\СКНЦ\НМК - 2014-02\source";
         private static object m = System.Reflection.Missing.Value;
-        private readonly Word.Application app = Globals.ThisAddIn.Application;
+        private readonly Microsoft.Office.Interop.Word.Application app = Globals.ThisAddIn.Application;
         private static readonly object eof = "\\endofdoc";
         private const string separator = "###";
 

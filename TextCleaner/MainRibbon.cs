@@ -13,9 +13,14 @@ namespace TextCleaner
 
         }
 
-        private void BtnMain_Click(object sender, RibbonControlEventArgs e)
+        private void BtnClean_Click(object sender, RibbonControlEventArgs e)
         {
-            new 
+            new GUI.Clean().ShowDialog();
+        }
+
+        private void BtnMerge_Click(object sender, RibbonControlEventArgs e)
+        {
+            new GUI.Merge().ShowDialog();
         }
     }
 }

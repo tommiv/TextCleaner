@@ -36,7 +36,7 @@
         {
             this.TabMain = this.Factory.CreateRibbonTab();
             this.GroupMain = this.Factory.CreateRibbonGroup();
-            this.BtnMain = this.Factory.CreateRibbonButton();
+            this.BtnClean = this.Factory.CreateRibbonButton();
             this.BtnMerge = this.Factory.CreateRibbonButton();
             this.TabMain.SuspendLayout();
             this.GroupMain.SuspendLayout();
@@ -50,19 +50,19 @@
             // 
             // GroupMain
             // 
-            this.GroupMain.Items.Add(this.BtnMain);
+            this.GroupMain.Items.Add(this.BtnClean);
             this.GroupMain.Items.Add(this.BtnMerge);
             this.GroupMain.Label = "Main";
             this.GroupMain.Name = "GroupMain";
             // 
-            // BtnMain
+            // BtnClean
             // 
-            this.BtnMain.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.BtnMain.Image = global::TextCleaner.Properties.Resources.Broom;
-            this.BtnMain.Label = "Clean";
-            this.BtnMain.Name = "BtnMain";
-            this.BtnMain.ShowImage = true;
-            this.BtnMain.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.BtnMain_Click);
+            this.BtnClean.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.BtnClean.Image = global::TextCleaner.Properties.Resources.Broom;
+            this.BtnClean.Label = "Clean";
+            this.BtnClean.Name = "BtnClean";
+            this.BtnClean.ShowImage = true;
+            this.BtnClean.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.BtnClean_Click);
             // 
             // BtnMerge
             // 
@@ -71,6 +71,7 @@
             this.BtnMerge.Label = "Merge";
             this.BtnMerge.Name = "BtnMerge";
             this.BtnMerge.ShowImage = true;
+            this.BtnMerge.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.BtnMerge_Click);
             // 
             // MainRibbon
             // 
@@ -89,7 +90,7 @@
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab TabMain;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup GroupMain;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton BtnMain;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton BtnClean;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton BtnMerge;
     }
 

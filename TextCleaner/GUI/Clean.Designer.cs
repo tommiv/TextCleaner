@@ -1,4 +1,4 @@
-﻿namespace TextCleaner
+﻿namespace TextCleaner.GUI
 {
     partial class Clean
     {
