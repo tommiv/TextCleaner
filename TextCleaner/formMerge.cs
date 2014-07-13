@@ -12,7 +12,7 @@ namespace TextCleaner
             InitializeComponent();
         }
 
-        private const string path = @"f:\Docs\Работа\СКНЦ\НМК - 2013-02\source";
+        private const string path = @"d:\Docs\Работа\СКНЦ\НМК - 2014-02\source";
         private static object m = System.Reflection.Missing.Value;
         private readonly Word.Application app = Globals.ThisAddIn.Application;
         private static readonly object eof = "\\endofdoc";
@@ -65,20 +65,23 @@ namespace TextCleaner
                 art.Close();
                 // copy annotation
                 var ann = app.Documents.Open(annotation, ReadOnly: true, Visible: false);
-                var fnd = ann.Content.Find;
-                fnd.Execute(separator);
                 try
                 {
+                    var fnd = ann.Content.Find;
+                    fnd.Execute(separator);
                     ann.Range(0, fnd.Parent.End - separator.Length).Copy();
                     ann_ru.Bookmarks.get_Item(eof).Range.Paste();
                     ann.Range(fnd.Parent.End, ann.Content.End).Copy();
                     ann_en.Bookmarks.get_Item(eof).Range.Paste();
+                    ann.Close();
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show(string.Format("Error in file: {0}\n{1}", article, ex.Message));
+                    if (MessageBox.Show("Missed abstract in [" + subdir + "]. Cancel?", "Missed", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        return;
+                    }
                 }
-                ann.Close();
             }
             // Merge all
             destination.Content.Select();
