@@ -17,13 +17,17 @@ namespace TextCleaner.GUI
         private void btnAll_Click(object sender, EventArgs e)
         {
             var s = (GroupBox)((Button)sender).Parent;
-            foreach (Control c in s.Controls) if (c is CheckBox) ((CheckBox)c).Checked = true;
+            foreach (CheckBox c in s.Controls.OfType<CheckBox>())
+                c.Checked = true;
         }
+
         private void btnNone_Click(object sender, EventArgs e)
         {
             var s = (GroupBox)((Button)sender).Parent;
-            foreach (Control c in s.Controls) if (c is CheckBox) ((CheckBox)c).Checked = false;
+            foreach (CheckBox c in s.Controls.OfType<CheckBox>())
+                c.Checked = false;
         }
+
         private void btnClose_Click(object sender, EventArgs e) { this.Close(); }
         private void btnRun_Click(object sender, EventArgs e)
         {
@@ -151,7 +155,7 @@ namespace TextCleaner.GUI
                 btnClose.Focus();
             }));
         }
-        private static void searchReplace(
+        private void searchReplace(
             string search, string replace, bool matchCase, bool repeated, 
             BackgroundWorker bw, string message, bool wildcards = true, bool format = false
         )
@@ -169,17 +173,26 @@ namespace TextCleaner.GUI
             Object ReplaceWith        = replace;
             Object Replace            = WdReplace.wdReplaceAll;
 
-            bool loop = true;
-            while (loop)
+            var ranges = new List<Find>();
+            ranges.Add(app.ActiveDocument.Range().Find);
+            foreach (Footnote footnote in app.ActiveDocument.Footnotes)
             {
-                Find findObject = Globals.ThisAddIn.Application.Selection.Find;
-                findObject.ClearFormatting();
-                findObject.Replacement.ClearFormatting();
-                loop = findObject.Execute(
-                    ref FindText, ref MatchCase, ref MatchWholeWord, ref MatchWildcards, ref MatchSoundsLike,
-                    ref MatchAllWordForms, ref Forward, ref Wrap, ref Format, ref ReplaceWith, ref Replace
-                );
-                if (!repeated) loop = false;
+                ranges.Add(footnote.Range.Find);
+            }
+
+            foreach (var findObject in ranges)
+            {
+                bool loop = true;
+                while (loop)
+                {
+                    findObject.ClearFormatting();
+                    findObject.Replacement.ClearFormatting();
+                    loop = findObject.Execute(
+                        ref FindText, ref MatchCase, ref MatchWholeWord, ref MatchWildcards, ref MatchSoundsLike,
+                        ref MatchAllWordForms, ref Forward, ref Wrap, ref Format, ref ReplaceWith, ref Replace
+                    );
+                    if (!repeated) loop = false;
+                }   
             }
         }
         private static void setFormat(string search, BackgroundWorker bw, string message, bool wildcards = true)
